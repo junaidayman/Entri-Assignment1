@@ -1,10 +1,10 @@
-# Spice Garden - Restaurant Menu Page
+# Royal Zaika - Restaurant Menu Page
 
 An authentic, responsive single-page restaurant menu website built for **Entri Phase 1 Frontend Foundations (Assignment No. 1)** using HTML5, CSS3, and JavaScript.
 
 ## 📌 Project Overview
 
-This project showcases a clean and modern restaurant website for **Spice Garden**, demonstrating:
+This project showcases a clean and modern restaurant website for **Royal Zaika**, demonstrating:
 - Proper HTML5 document structure and semantic markup (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`).
 - CSS box model properties (`padding`, `margin`, `border`, `border-radius`, and `box-shadow`).
 - Responsive multi-column layout using CSS Grid and Flexbox.
