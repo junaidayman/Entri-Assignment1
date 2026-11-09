@@ -1,0 +1,707 @@
+/* ==========================================================================
+   Spice Garden - Restaurant Menu Page Stylesheets
+   Phase 1 · Frontend Foundations — HTML, CSS & Box Model
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Reset & Box Sizing
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Color Palette - Hex & RGB */
+    --color-primary-dark: #4a121a;        /* Rich Burgundy Maroon */
+    --color-primary-deep: #320a10;        /* Deep Wine Shadow */
+    --color-accent-gold: #d4af37;         /* Warm Classic Gold */
+    --color-accent-amber: #c59b27;        /* Deeper Amber Gold */
+    --color-pill-gold: #dfaf64;           /* Warm Golden Tan for Active Pill */
+    --color-price-green: #1f7a3f;         /* Fresh Indian Emerald Price Green */
+    --color-bg-page: #fbf8f3;             /* Warm Parchment Off-White */
+    --color-bg-card: #ffffff;             /* Crisp Clean White Card */
+    --color-bg-hero: #f7f1e6;             /* Warm Light Cream */
+    --color-text-main: #2b1619;           /* Deep Charcoal Maroon */
+    --color-text-muted: #66554e;          /* Muted Soil Brown for descriptions */
+    --color-border-card: #ebdcd0;         /* Soft Warm Border */
+    --color-border-accent: #dfcfbf;       /* Subtle Section Separator */
+    
+    /* Typography - fonts with fallbacks */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* Box Shadows */
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 14px rgba(74, 18, 26, 0.08);
+    --shadow-lg: 0 8px 24px rgba(74, 18, 26, 0.14);
+    
+    /* Transitions Effects */
+    --transition-standard: all 0.25s ease-in-out;
+
+    /* Dynamic Header Height (updated via JS ResizeObserver) */
+    --header-height: 80px;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height, 80px);
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-page);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* --------------------------------------------------------------------------
+   2. Layout Containers & Utility Classes
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-standard);
+}
+
+ul {
+    list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header Section & Navigation Bar
+   -------------------------------------------------------------------------- */
+.header {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-deep) 100%);
+    color: #ffffff;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.header.header-scrolled {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.38);
+    border-bottom-color: rgba(212, 175, 55, 0.5);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Brand Identity */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    transition: var(--transition-standard);
+}
+
+.brand-logo:hover {
+    transform: scale(1.06);
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.restaurant-name {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tagline {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #eed6b3;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+}
+
+/* Navigation Bar */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f7ebe1;
+    padding: 8px 20px;
+    border-radius: 24px;
+    transition: var(--transition-standard);
+    display: inline-block;
+}
+
+.nav-link:hover {
+    color: var(--color-accent-gold);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Active Menu Pill Style matching assignment mockup */
+.nav-link.active {
+    background-color: var(--color-pill-gold);
+    color: var(--color-primary-deep);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.nav-link.active:hover {
+    background-color: #e9ba70;
+    color: var(--color-primary-deep);
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Section: Headline & Featured Presentation
+   -------------------------------------------------------------------------- */
+.hero-section {
+    background: linear-gradient(180deg, #f5ebd9 0%, var(--color-bg-page) 100%);
+    padding: 40px 0 20px;
+    border-bottom: 1px solid var(--color-border-accent);
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.hero-content {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background-color: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-accent-amber);
+    font-weight: 500;
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    max-width: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 4px solid #ffffff;
+    transition: var(--transition-standard);
+}
+
+.hero-image-wrapper:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(74, 18, 26, 0.2);
+}
+
+.hero-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   5. Menu Section & Category Cards
+   -------------------------------------------------------------------------- */
+.menu-section {
+    padding-top: 48px;
+    padding-bottom: 60px;
+}
+
+.menu-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+/* Category Column */
+.category-column {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Rounded Dark Pill Header for Each Category */
+.category-header {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, #3a0d14 100%);
+    color: #ffffff;
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+}
+
+.category-icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+}
+
+.category-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Category Items Container */
+.category-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--color-border-accent);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Individual Menu Item Card (Box Model Implementation) */
+.menu-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: default;
+}
+
+.menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* Thumbnail Image Container */
+.card-image-box {
+    width: 82px;
+    height: 82px;
+    min-width: 82px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f0ebe4;
+    border: 1px solid #ebdcd0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.menu-card:hover .card-image {
+    transform: scale(1.08);
+}
+
+/* Details Box (Name, Description, Price) */
+.card-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-name {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+.item-description {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    line-height: 1.35;
+    margin-bottom: 6px;
+}
+
+.item-price {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-price-green);
+    letter-spacing: 0.2px;
+}
+
+/* --------------------------------------------------------------------------
+   6. About Us Section
+   -------------------------------------------------------------------------- */
+.about-section {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+
+.about-wrapper {
+    background: linear-gradient(135deg, #fdfbf7 0%, #f6eee4 100%);
+    border: 1px solid var(--color-border-card);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+    box-shadow: var(--shadow-md);
+}
+
+.about-image-column {
+    flex: 1;
+    max-width: 460px;
+}
+
+.about-image-frame {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 3px solid #ffffff;
+}
+
+.about-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.about-image-frame:hover .about-image {
+    transform: scale(1.04);
+}
+
+.about-content-column {
+    flex: 1.2;
+}
+
+.about-heading-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.about-leaf-badge {
+    font-size: 1.4rem;
+}
+
+.about-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.about-text {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+}
+
+.about-text strong {
+    color: var(--color-primary-dark);
+}
+
+.about-flourish {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.flourish-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+.flourish-icon {
+    font-size: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer Section: Address, Hours, Contact & Copyright
+   -------------------------------------------------------------------------- */
+.footer {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-deep) 100%);
+    color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 24px;
+    border-top: 3px solid var(--color-accent-gold);
+}
+
+.footer-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.footer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: var(--transition-standard);
+}
+
+.footer-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
+}
+
+.footer-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--color-accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.footer-card-desc {
+    font-size: 0.9rem;
+    color: #eed6b3;
+    line-height: 1.4;
+}
+
+.contact-link {
+    color: #eed6b3;
+    font-weight: 500;
+}
+
+.contact-link:hover {
+    color: var(--color-accent-gold);
+    text-decoration: underline;
+}
+
+/* Footer Bottom Copyright */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 22px;
+    text-align: center;
+}
+
+.copyright-text {
+    font-size: 0.85rem;
+    color: #d1b5a6;
+    letter-spacing: 0.3px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Design & Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .menu-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .menu-categories-grid .category-column:last-child {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .brand {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.1rem;
+    }
+
+    .menu-categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-categories-grid .category-column:last-child {
+        grid-column: span 1;
+    }
+
+    .about-wrapper {
+        flex-direction: column;
+        padding: 24px;
+        gap: 24px;
+        text-align: center;
+    }
+
+    .about-heading-box {
+        justify-content: center;
+    }
+
+    .about-image-column {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .footer-info-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-card {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card-image-box {
+        width: 72px;
+        height: 72px;
+        min-width: 72px;
+    }
+
+    .item-name {
+        font-size: 0.95rem;
+    }
+
+    .item-description {
+        font-size: 0.78rem;
+    }
+
+    .item-price {
+        font-size: 0.95rem;
+    }
+
+    .nav-link {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+}
