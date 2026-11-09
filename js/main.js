@@ -1,5 +1,5 @@
 // Dynamic header height and active navigation highlighting
-const header = document.querySelector('.header');
+const header = document.querySelector('header');
 const sections = document.querySelectorAll('section[id], footer[id]');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -26,6 +26,9 @@ function handleScroll() {
                 currentSection = section.id;
             }
         });
+        if (!currentSection) {
+            currentSection = 'menu';
+        }
     }
 
     navLinks.forEach(link => {
